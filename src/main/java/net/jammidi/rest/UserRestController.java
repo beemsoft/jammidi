@@ -27,7 +27,10 @@ public class UserRestController {
 
     @RequestMapping(value = "/api/users/{username}", method = RequestMethod.GET)
     public User get(@PathVariable String username) {
-        return userService.get(username);
+        User user = userService.get(username);
+        user.setLatestLogon(new Date());
+        userService.update(username, user);
+        return user;
     }
 
     @RequestMapping(value = "/api/users", method = RequestMethod.POST)
