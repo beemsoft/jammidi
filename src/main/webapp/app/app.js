@@ -1,9 +1,12 @@
 (function () {
-  angular
-    .module("app", [
+  angular.module(
+    "app",
+    [
       "app.controllers",
       "app.services",
-      "ngResource", "ngRoute", "ngCookies"
+      "ngResource",
+      "ngRoute",
+      "ngCookies"
     ])
     .config(config)
     .run(run);
@@ -11,8 +14,8 @@
   angular.module("app.controllers", []);
   angular.module("app.services", []);
 
-  config.$inject = ['$routeProvider', '$locationProvider'];
-  function config($routeProvider, $locationProvider) {
+  config.$inject = ['$routeProvider'];
+  function config($routeProvider) {
     $routeProvider
       .when('/', {
         controller: 'HomeController',
@@ -41,7 +44,13 @@
       .otherwise({redirectTo: '/login'});
   }
 
-  run.$inject = ['$rootScope', '$location', '$cookieStore', '$http'];
+  run.$inject = [
+    '$rootScope',
+    '$location',
+    '$cookieStore',
+    '$http'
+  ];
+
   function run($rootScope, $location, $cookieStore, $http) {
     // keep user logged in after page refresh
     $rootScope.globals = $cookieStore.get('globals') || {};

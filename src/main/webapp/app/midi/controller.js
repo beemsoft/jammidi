@@ -40,23 +40,23 @@
       jazz.MidiOut(midiEvent.midi.a, midiEvent.midi.key, midiEvent.midi.b);
       if (midiEvent.midi.b == 127 || midiEvent.midi.b == 0) {
         if ($scope.note.indexOf(midiEvent.midi.key) > -1) {
-          $scope.note.splice($scope.note.indexOf(midiEvent.midi.key), 1)
+          $scope.note.splice($scope.note.indexOf(midiEvent.midi.key), 1);
         }
       } else {
         if ($scope.note.indexOf(midiEvent.midi.key) == -1) {
-          $scope.note.push(midiEvent.midi.key)
+          $scope.note.push(midiEvent.midi.key);
         }
       }
     });
 
     function play (a, key, c) {
       if (c == 127 || c == 0) {
-        $scope.note.splice($scope.note.indexOf(key),1)
+        $scope.note.splice($scope.note.indexOf(key),1);
       } else {
-        $scope.note.push(key)
+        $scope.note.push(key);
       }
       jazz.MidiOut(a, key, c);
-      if (!$scope.isMuted.value) {
+      if (!$scope.isMuted.value && $scope.$parent.globals.currentUser !== undefined && $scope.$parent.globals.currentUser !== null ) {
         function playRemote() {
           MidiService.send(a, key, c, $scope.user, $scope.songTitle, $scope.desc);
         }
@@ -66,6 +66,7 @@
 
     jazz.MidiInOpen(0, function (t,a,key,c) {
       play(a, key, c);
+      $scope.$digest();
     });
 
     $scope.keys = {

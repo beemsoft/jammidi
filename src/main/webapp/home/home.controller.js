@@ -5,8 +5,20 @@
     .module('app')
     .controller('HomeController', HomeController);
 
-  HomeController.$inject = ['$location', 'UserService', '$rootScope', 'ChatService', 'AuthenticationService'];
-  function HomeController($location, UserService, $rootScope, ChatService, AuthenticationService) {
+  HomeController.$inject = [
+    '$location',
+    'UserService',
+    '$rootScope',
+    'ChatService',
+    'AuthenticationService'
+  ];
+  function HomeController(
+    $location,
+    UserService,
+    $rootScope,
+    ChatService,
+    AuthenticationService
+  ) {
     var vm = this;
 
     vm.user = null;
@@ -59,5 +71,4 @@
         })
     }
   }
-
 })();
